@@ -23,6 +23,8 @@ import static okhttp3.internal.platform.Platform.INFO;
 
 public final class SimpleLoggingInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");
+    private int mRequestTag = 0;
+    private final int mMaxRequestTag = 99999999;
 
 
     public interface Logger {
@@ -52,16 +54,20 @@ public final class SimpleLoggingInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-
+        if(mRequestTag >= mMaxRequestTag){
+            mRequestTag = 0;
+        }
+        mRequestTag ++;
+        final int requestTag = mRequestTag;
         Request request = chain.request();
-
 
         RequestBody requestBody = request.body();
         boolean hasRequestBody = requestBody != null;
 
         Connection connection = chain.connection();
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
-        String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
+        String requestStartMessage = "(" + requestTag + ") " + "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
+
         if (hasRequestBody) {
             requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
         }
@@ -97,7 +103,7 @@ public final class SimpleLoggingInterceptor implements Interceptor {
         int responseCode = response.code();
         String responseMsg = response.message();
         String requestUrl = response.request().url().toString();
-        logger.log("<-- " + responseCode + ' ' + responseMsg + ' '
+        logger.log("(" + requestTag + ") " + "<-- " + responseCode + ' ' + responseMsg + ' '
                 + requestUrl + " (" + tookMs + "ms" + ", "
                 + bodySize + " body)");
 
@@ -128,7 +134,7 @@ public final class SimpleLoggingInterceptor implements Interceptor {
 
             if (contentLength != 0) {
                 String json = buffer.clone().readString(charset);
-                logger.log("<--" + json);
+                logger.log("(" + requestTag + ") " + "<--" + json);
             }
         }
         return response;
