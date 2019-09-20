@@ -1,4 +1,4 @@
-package com.rxhttp.lib;
+package com.rxhttp.lib.model;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseModelImpl {
+public abstract class BaseModel {
 
     protected <T> ObservableTransformer<T, T> ioMainScheduler() {
         return upstream ->

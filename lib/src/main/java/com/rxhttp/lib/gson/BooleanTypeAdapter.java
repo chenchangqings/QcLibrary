@@ -1,10 +1,10 @@
 package com.rxhttp.lib.gson;
 
+import android.text.TextUtils;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.rxhttp.lib.RxHttpUtils;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
 
 
     private boolean quearyString(String data) {
-        if (RxHttpUtils.isEmpty(data)) {
+        if (TextUtils.isEmpty(data)) {
             return false;
         } else {
             return Boolean.parseBoolean(data);

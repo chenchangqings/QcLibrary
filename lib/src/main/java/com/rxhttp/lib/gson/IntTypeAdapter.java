@@ -1,10 +1,10 @@
 package com.rxhttp.lib.gson;
 
+import android.text.TextUtils;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.rxhttp.lib.RxHttpUtils;
 
 import java.io.IOException;
 
@@ -22,10 +22,10 @@ public class IntTypeAdapter extends TypeAdapter<Integer> {
         }
 
         if (reader.peek() == JsonToken.STRING) {
-            return quearyString(reader.nextString());
+            return queryString(reader.nextString());
         }
 
-        return reader.nextInt();
+        return (int)reader.nextDouble();
     }
 
     @Override
@@ -40,14 +40,12 @@ public class IntTypeAdapter extends TypeAdapter<Integer> {
     }
 
 
-    private int quearyString(String data) {
-        if (RxHttpUtils.isEmpty(data)) {
+    private int queryString(String data) {
+        if (TextUtils.isEmpty(data)) {
             return 0;
         } else {
             return Integer.parseInt(data);
         }
-
     }
-
 
 }

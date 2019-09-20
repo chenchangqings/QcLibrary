@@ -12,7 +12,7 @@ import java.util.Map;
 public class GsonSerializer {
 
 
-    private static GsonSerializer mInstance;
+    private static volatile GsonSerializer mInstance;
 
     public static GsonSerializer getInstance() {
         synchronized (GsonSerializer.class) {
@@ -80,7 +80,6 @@ public class GsonSerializer {
         return mGson.toJson(object);
     }
 
-
     public <T> Object fromJsonT(String json, Class<T> cls) {
         return mGson.fromJson(json, cls);
     }
@@ -98,7 +97,7 @@ public class GsonSerializer {
         return null;
     }
 
-    public Object fromJson(String json, Type type) {
+    public  <T> T fromJson(String json, Type type) {
         return mGson.fromJson(json, type);
     }
 
