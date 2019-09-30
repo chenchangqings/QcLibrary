@@ -1,4 +1,4 @@
-package com.qclibrary.lib.model;
+package com.qclibrary.lib.io.http;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
@@ -7,7 +7,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseModel {
+public abstract class QcBaseModel {
 
     protected <T> ObservableTransformer<T, T> ioMainScheduler() {
         return upstream ->
@@ -30,6 +30,5 @@ public abstract class BaseModel {
         observable.compose(compose)
                 .subscribe(observer);
     }
-
 
 }

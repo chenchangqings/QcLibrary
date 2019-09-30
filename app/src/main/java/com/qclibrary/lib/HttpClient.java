@@ -3,6 +3,8 @@ package com.qclibrary.lib;
 import com.qclibrary.lib.io.gson.GsonSerializer;
 import com.qclibrary.lib.io.http.QcAbsHttpClient;
 
+import okhttp3.Interceptor;
+
 public class HttpClient extends QcAbsHttpClient<ApiService> {
 
     private static volatile HttpClient mInstance;
@@ -23,7 +25,8 @@ public class HttpClient extends QcAbsHttpClient<ApiService> {
         return mInstance;
     }
 
-
-
-
+    @Override
+    public Interceptor initCommonInterceptor() {
+        return super.initCommonInterceptor();
+    }
 }

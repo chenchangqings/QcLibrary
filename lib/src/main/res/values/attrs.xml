@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="QcLoadingLayout">
+        <attr name="qc_radius"/>
+        <attr name="qc_totalTime" format="integer"/>
+        <attr name="qc_speed" format="integer"/>
+        <attr name="qc_isInfinite" format="boolean"/>
+        <attr name="qc_isAudioStart" format="boolean"/>
+        <attr name="qc_loadColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="QcShapeLayout">
+        <attr name="qc_radius"/>
+        <attr name="qc_radius_left_top"/>
+        <attr name="qc_radius_left_bottom"/>
+        <attr name="qc_radius_right_top"/>
+        <attr name="qc_radius_right_bottom"/>
+    </declare-styleable>
+
+    <!-- public-->
+    <attr name="qc_radius" format="dimension"/>
+</resources>

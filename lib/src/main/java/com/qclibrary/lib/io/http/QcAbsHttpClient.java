@@ -28,7 +28,6 @@ public abstract class QcAbsHttpClient<T> {
     private static volatile QcAbsHttpClient mInstance;
 
     public QcAbsHttpClient build(){
-
         mOkHttpClient = initHttpClient();
         mApiService = initRetrofitBuilder().build().create(analysisApiService());
         return this;
@@ -66,6 +65,10 @@ public abstract class QcAbsHttpClient<T> {
         if(isLogOpen){
             builder.addInterceptor(initLogInterceptor());
         }
+        Interceptor commonInterceptor = initCommonInterceptor();
+        if(commonInterceptor != null){
+            builder.addInterceptor(commonInterceptor);
+        }
         OkHttpClient okHttpClient = builder.build();
         okHttpClient.dispatcher().setMaxRequestsPerHost(20);
         return okHttpClient;
@@ -82,6 +85,10 @@ public abstract class QcAbsHttpClient<T> {
                 }
             }
         });
+    }
+
+    public Interceptor initCommonInterceptor(){
+        return null;
     }
 
     private Class<T> analysisApiService (){

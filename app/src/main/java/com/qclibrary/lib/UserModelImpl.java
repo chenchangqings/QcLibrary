@@ -1,10 +1,8 @@
 package com.qclibrary.lib;
 
-import com.qclibrary.lib.model.BaseModel;
+import com.qclibrary.lib.io.http.QcBaseModel;
 
-import io.reactivex.Observable;
-
-public class UserModelImpl extends BaseModel {
+public class UserModelImpl extends QcBaseModel {
 
     public void getUserById(int id,NetObserver<UserBean> observer){
 //        Observable<UserBean> observable = HttpClient.getInstance().
