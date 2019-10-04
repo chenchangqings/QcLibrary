@@ -43,18 +43,17 @@ public abstract class QcAbsHttpClient<T> {
         return this;
     }
 
-    public T getApiService(){
-        return mApiService;
-    }
-
     protected abstract String initBaseUrl();
 
     public Retrofit.Builder initRetrofitBuilder(){
-        return new Retrofit.Builder()
+        Retrofit.Builder builder =  new Retrofit.Builder()
                 .baseUrl(initBaseUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(GsonSerializer.getInstance().getGson()));
-
+        if(mOkHttpClient != null){
+            builder.client(mOkHttpClient);
+        }
+        return builder;
     }
 
     public OkHttpClient initHttpClient(){
@@ -98,4 +97,16 @@ public abstract class QcAbsHttpClient<T> {
         return tClass;
     }
 
+
+    public T getApiService(){
+        return mApiService;
+    }
+
+    public OkHttpClient getOkHttpClient() {
+        return mOkHttpClient;
+    }
+
+    public boolean isLogOpen() {
+        return isLogOpen;
+    }
 }
